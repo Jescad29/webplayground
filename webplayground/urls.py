@@ -24,4 +24,6 @@ urlpatterns = [
     # Paths de Auth
     # Incluimos las urls de autenticación de Django
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('registration.urls')),
+
 ]
