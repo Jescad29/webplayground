@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Auth redirect
-LOGIN_REDIRECT_URL = 'pages:pages'
+# LOGIN_REDIRECT_URL = 'pages:pages'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Default primary key field type
@@ -136,6 +136,11 @@ if DEBUG:
 else:
     # Aquí hay que configurar un email real para producción
     pass
+
+# Media files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
