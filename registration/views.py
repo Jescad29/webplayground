@@ -1,5 +1,5 @@
 # from typing import Any
-from .forms import UserCreationFormWithEmail, ProfileForm
+from .forms import UserCreationFormWithEmail, ProfileForm, EmailForm
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from .forms import UserCreationFormWithEmail
@@ -45,3 +45,21 @@ class ProfileUpdate(UpdateView):
         # Recuperar el objeto que se va a editar
         profile, create = Profile.objects.get_or_create(user=self.request.user)
         return profile
+
+
+@method_decorator(login_required, name='dispatch')
+class EmailUpdate(UpdateView):
+    form_class = EmailForm
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/profile_email_form.html'
+
+    def get_object(self):
+        # Recuperar el usuario
+        return self.request.user
+
+    def get_form(self, form_class=None):
+        form = super(EmailUpdate, self).get_form()
+        # Modificar en tiempo real el formulario
+        form.fields['email'].widget = forms.EmailInput(
+            attrs={'class': 'form-control mb-2', 'placeholder': 'Dirección email'})
+        return form
